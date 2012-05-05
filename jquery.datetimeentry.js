@@ -1,5 +1,5 @@
 /* http://keith-wood.name/datetimeEntry.html
-   Date and time entry for jQuery v1.0.0.
+   Date and time entry for jQuery v1.0.1.
    Written by Keith Wood (kbwood{at}iinet.com.au) September 2010.
    Dual licensed under the GPL (http://dev.jquery.com/browser/trunk/jquery/GPL-LICENSE.txt) and 
    MIT (http://dev.jquery.com/browser/trunk/jquery/MIT-LICENSE.txt) licenses. 
@@ -219,7 +219,7 @@ $.extend(DatetimeEntry.prototype, {
 		inst._fields = [];
 		inst._ampmField = -1;
 		for (var i = 0; i < datetimeFormat.length; i++) {
-			if (datetimeFormat.charAt(i).match(/y|Y|o|O|n|N|d|D|w|W|h|H|m|M|s|S|a/)) {
+			if (datetimeFormat.charAt(i).match(/[yYoOnNdDwWhHmMsSa]/)) {
 				inst._fields.push(i);
 			}
 			if (datetimeFormat.charAt(i) == 'a') {
@@ -246,13 +246,18 @@ $.extend(DatetimeEntry.prototype, {
 	},
 
 	/* Initialise the current datetime for a datetime entry input field.
-	   @param  input  (element) input field to update
-	   @param  time   (Date) the new datetime or null for now */
+	   @param  input     (element) input field to update
+	   @param  datetime  (Date) the new datetime or null for now */
 	_setDatetimeDatetimeEntry: function(input, datetime) {
 		var inst = $.data(input, PROP_NAME);
 		if (inst) {
-			this._setDatetime(inst, datetime ? (typeof datetime == 'object' ?
-				new Date(datetime.getTime()) : datetime) : null);
+			if (datetime === null || datetime === '') {
+				inst.input.val('');
+			}
+			else {
+				this._setDatetime(inst, datetime ? (typeof datetime == 'object' ?
+					new Date(datetime.getTime()) : datetime) : null);
+			}
 		}
 	},
 
@@ -422,6 +427,9 @@ $.extend(DatetimeEntry.prototype, {
 	_expandSpinner: function(event) {
 		var spinner = $.datetimeEntry._getSpinnerTarget(event);
 		var inst = $.data($.datetimeEntry._getInput(spinner), PROP_NAME);
+		if ($.datetimeEntry._isDisabledDatetimeEntry(inst.input[0])) {
+			return;
+		}
 		var spinnerBigImage = $.datetimeEntry._get(inst, 'spinnerBigImage');
 		if (spinnerBigImage) {
 			inst._expanded = true;

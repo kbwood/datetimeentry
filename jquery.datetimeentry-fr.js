@@ -10,7 +10,7 @@
 		dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 		dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
 		ampmNames: ['AM', 'PM'],
-		spinnerTexts: ['Maintenant', 'Précédent', 'Suivant', 'Augmentez', 'Amoindrissez'],
+		spinnerTexts: ['Maintenant', 'Précédent', 'Suivant', 'Augmenter', 'Diminuer'],
 		isRTL: false};
 	$.datetimeEntry.setDefaults($.datetimeEntry.regional['fr']);
 })(jQuery);
