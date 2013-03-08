@@ -3,14 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>jQuery Date/Time Entry</title>
-<style type="text/css">
-@import "jquery.datetimeentry.css";
-</style>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<link type="text/css" href="jquery.datetimeentry.css" rel="stylesheet">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.datetimeentry.js"></script>
 <script type="text/javascript">
 $(function () {
-	$.datetimeEntry.setDefaults({spinnerImage: 'spinnerDefault.png'});
 	$('#defaultEntry').datetimeEntry();
 	$('#dateEntry').datetimeEntry({datetimeFormat: 'O/D/Y'});
 	$('#timeEntry').datetimeEntry({datetimeFormat: 'H:Ma'});

@@ -1,8 +1,7 @@
 /* http://keith-wood.name/datetimeEntry.html
-   Date and time entry for jQuery v1.1.0.
+   Date and time entry for jQuery v1.1.1.
    Written by Keith Wood (kbwood{at}iinet.com.au) September 2010.
-   Dual licensed under the GPL (http://dev.jquery.com/browser/trunk/jquery/GPL-LICENSE.txt) and 
-   MIT (http://dev.jquery.com/browser/trunk/jquery/MIT-LICENSE.txt) licenses. 
+   Licensed under the MIT (https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt) license.
    Please attribute the author if you use it. */
 
 /* Turn an input field into an entry point for a date and/or time value.
@@ -83,8 +82,6 @@ $.extend(DatetimeEntry.prototype, {
 	/* Name of the data property for instance settings. */
 	propertyName: 'datetimeEntry',
 
-	/* Class name for the date/time entry wrapper. */
-	_wrapClass: 'datetimeEntry_wrap',
 	/* Class name for the appended content. */
 	_appendClass: 'datetimeEntry_append',
 	/* Class name for the date/time entry control. */
@@ -118,16 +115,9 @@ $.extend(DatetimeEntry.prototype, {
 			bind('click.' + this.propertyName, this._doClick).
 			bind('keydown.' + this.propertyName, this._doKeyDown).
 			bind('keypress.' + this.propertyName, this._doKeyPress).
-			wrap('<span class="' + this._wrapClass + '"></span>');
-		// Check pastes
-		if ($.browser.mozilla) {
-			input.bind('input.' + this.propertyName,
-				function(event) { plugin._extractDatetime(inst); });
-		}
-		if ($.browser.msie) {
-			input.bind('paste.' + this.propertyName, function(event) {
-				setTimeout(function() { plugin._extractDatetime(inst); }, 1); });
-		}
+			bind('paste.' + this.propertyName, function(event) { // Check pastes
+				setTimeout(function() { plugin._extractDatetime(inst); }, 1);
+			});
 		this._optionPlugin(target, options);
 	},
 
@@ -158,6 +148,7 @@ $.extend(DatetimeEntry.prototype, {
 		}
 		var currentDate = this._parseDatetime(inst, target.val());
 		$.extend(inst.options, options);
+		inst._field = 0;
 		this._decodeDatetimeFormat(inst);
 		if (currentDate) {
 			this._setDatetime(inst, currentDate);
@@ -172,10 +163,7 @@ $.extend(DatetimeEntry.prototype, {
 		var spinner = (!inst.options.spinnerImage ? null : 
 			$('<span class="' + this._controlClass + '" style="display: inline-block; ' +
 			'background: url(\'' + inst.options.spinnerImage + '\') 0 0 no-repeat; width: ' +
-			inst.options.spinnerSize[0] + 'px; height: ' + inst.options.spinnerSize[1] + 'px;' +
-			($.browser.mozilla && $.browser.version < '1.9' ? // FF 2- (Win)
-			' padding-left: ' + inst.options.spinnerSize[0] + 'px; padding-bottom: ' +
-			(inst.options.spinnerSize[1] - 18) + 'px;' : '') + '"></span>'));
+			inst.options.spinnerSize[0] + 'px; height: ' + inst.options.spinnerSize[1] + 'px;"></span>'));
 		target.after(inst.options.appendText ? '<span class="' + this._appendClass + '">' +
 			inst.options.appendText + '</span>' : '').after(spinner || '');
 		// Allow mouse wheel usage
@@ -256,7 +244,7 @@ $.extend(DatetimeEntry.prototype, {
 		}
 		this._disabledInputs = $.map(this._disabledInputs,
 			function(value) { return (value == target[0] ? null : value); }); // Delete entry
-		target.parent().replaceWith(target);
+		target.siblings('.' + this._appendClass + ',.' + this._controlClass).remove();
 	},
 
 	/* Initialise the current datetime for a datetime entry input field.
@@ -422,8 +410,6 @@ $.extend(DatetimeEntry.prototype, {
 		if (plugin._isDisabledPlugin(event.target)) {
 			return;
 		}
-		delta = ($.browser.opera ? -delta / Math.abs(delta) :
-			($.browser.safari ? delta / Math.abs(delta) : delta));
 		var inst = $.data(event.target, plugin.propertyName);
 		inst.input.focus();
 		if (!inst.input.val()) {
@@ -590,14 +576,11 @@ $.extend(DatetimeEntry.prototype, {
 	   @return  (number) the spinner "button" number */
 	_getSpinnerRegion: function(inst, event) {
 		var spinner = this._getSpinnerTarget(event);
-		var pos = ($.browser.opera || $.browser.safari ?
-			plugin._findPos(spinner) : $(spinner).offset());
-		var scrolled = ($.browser.safari ? plugin._findScroll(spinner) :
-			[document.documentElement.scrollLeft || document.body.scrollLeft,
-			document.documentElement.scrollTop || document.body.scrollTop]);
-		var left = (inst.options.spinnerIncDecOnly ? 99 : event.clientX + scrolled[0] -
-			pos.left - ($.browser.msie ? 2 : 0));
-		var top = event.clientY + scrolled[1] - pos.top - ($.browser.msie ? 2 : 0);
+		var pos = $(spinner).offset();
+		var scrolled = [document.documentElement.scrollLeft || document.body.scrollLeft,
+			document.documentElement.scrollTop || document.body.scrollTop];
+		var left = (inst.options.spinnerIncDecOnly ? 99 : event.clientX + scrolled[0] - pos.left);
+		var top = event.clientY + scrolled[1] - pos.top;
 		var spinnerSize = inst.options[inst._expanded ? 'spinnerBigSize' : 'spinnerSize'];
 		var right = (inst.options.spinnerIncDecOnly ? 99 : spinnerSize[0] - 1 - left);
 		var bottom = spinnerSize[1] - 1 - top;
@@ -616,46 +599,6 @@ $.extend(DatetimeEntry.prototype, {
 	_changeSpinner: function(inst, spinner, region) {
 		$(spinner).css('background-position', '-' + ((region + 1) *
 			inst.options[inst._expanded ? 'spinnerBigSize' : 'spinnerSize'][0]) + 'px 0px');
-	},
-
-	/* Find an object's position on the screen.
-	   @param  obj  (element) the control
-	   @return  (object) position as .left and .top */
-	_findPos: function(obj) {
-		var curLeft = curTop = 0;
-		if (obj.offsetParent) {
-			curLeft = obj.offsetLeft;
-			curTop = obj.offsetTop;
-			while (obj = obj.offsetParent) {
-				var origCurLeft = curLeft;
-				curLeft += obj.offsetLeft;
-				if (curLeft < 0) {
-					curLeft = origCurLeft;
-				}
-				curTop += obj.offsetTop;
-			}
-		}
-		return {left: curLeft, top: curTop};
-	},
-
-	/* Find an object's scroll offset on the screen.
-	   @param  obj  (element) the control
-	   @return  (number[]) offset as [left, top] */
-	_findScroll: function(obj) {
-		var isFixed = false;
-		$(obj).parents().each(function() {
-			isFixed |= $(this).css('position') == 'fixed';
-		});
-		if (isFixed) {
-			return [0, 0];
-		}
-		var scrollLeft = obj.scrollLeft;
-		var scrollTop = obj.scrollTop;
-		while (obj = obj.parentNode) {
-			scrollLeft += obj.scrollLeft || 0;
-			scrollTop += obj.scrollTop || 0;
-		}
-		return [scrollLeft, scrollTop];
 	},
 
 	/* Extract the datetime value from the input field, or default to now.
@@ -1252,7 +1195,7 @@ $.fn.datetimeEntry = function(options) {
 		else {
 			// Check for settings on the control itself
 			var inlineSettings = ($.fn.metadata ? $(this).metadata() : {});
-			plugin._attachPlugin(this, $.extend(inlineSettings, options || {}));
+			plugin._attachPlugin(this, $.extend({}, inlineSettings, options || {}));
 		}
 	});
 };
