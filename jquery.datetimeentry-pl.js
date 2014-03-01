@@ -2,7 +2,7 @@
    Polish initialisation for the jQuery date/time entry extension. 
    Polish translation by Jacek Wysocki (jacek.wysocki@gmail.com). */
 (function($) {
-	$.datetimeEntry.regional['pl'] = {datetimeFormat: 'Y-O-D H:M',
+	$.datetimeEntry.regionalOptions['pl'] = {datetimeFormat: 'Y-O-D H:M',
 		monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
 		'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
 		monthNamesShort: ['Sty','Lut','Mar','Kwi','Maj','Cze',
@@ -12,5 +12,5 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['Teraz', 'Poprzednie pole', 'Następne pole', 'Zwiększ wartość', 'Zmniejsz wartość'],
 		isRTL: false};
-	$.datetimeEntry.setDefaults($.datetimeEntry.regional['pl']);
+	$.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['pl']);
 })(jQuery);

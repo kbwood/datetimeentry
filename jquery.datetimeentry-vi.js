@@ -2,7 +2,7 @@
    Vietnamese initialisation for the jQuery date/time entry extension
    Written by Le Thanh Huy (lthanhhuy@cit.ctu.edu.vn)  */
 (function($) {
-	$.datetimeEntry.regional['vi'] = {datetimeFormat: 'D/O/Y H:Ma',
+	$.datetimeEntry.regionalOptions['vi'] = {datetimeFormat: 'D/O/Y H:Ma',
 		monthNames: ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu',
 		'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'],
 		monthNamesShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
@@ -12,6 +12,6 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['Hôm nay', 'Mục trước', 'Mục sau', 'Tăng', 'Giảm'],
 		isRTL: false};
-	$.datetimeEntry.setDefaults($.datetimeEntry.regional['vi']);
+	$.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['vi']);
 })(jQuery);
 

@@ -2,7 +2,7 @@
    Romanian initialisation for the jQuery date/time entry extension
    Written by Edmond L. (ll_edmond@walla.com)  */
 (function($) {
-	$.datetimeEntry.regional['ro'] = {datetimeFormat: 'O/D/Y H:M',
+	$.datetimeEntry.regionalOptions['ro'] = {datetimeFormat: 'O/D/Y H:M',
 		monthNames: ['Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie',
 		'Iulie','August','Septembrie','Octobrie','Noiembrie','Decembrie'],
 		monthNamesShort: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun',
@@ -12,5 +12,5 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['Acum', 'Campul Anterior', 'Campul Urmator', 'Mareste', 'Micsoreaza'],
 		isRTL: false};
-	$.datetimeEntry.setDefaults($.datetimeEntry.regional['ro']);
+	$.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['ro']);
 })(jQuery);

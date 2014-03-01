@@ -2,7 +2,7 @@
    Swedish initialisation for the jQuery date/time entry extension.
    Written by Anders Ekdahl ( anders@nomadiz.se). */
 (function($) {
-	$.datetimeEntry.regional['sv'] = {datetimeFormat: 'Y-O-D H:M',
+	$.datetimeEntry.regionalOptions['sv'] = {datetimeFormat: 'Y-O-D H:M',
         monthNames: ['Januari','Februari','Mars','April','Maj','Juni',
         'Juli','Augusti','September','Oktober','November','December'],
         monthNamesShort: ['Jan','Feb','Mar','Apr','Maj','Jun',
@@ -12,5 +12,5 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['Nu', 'Förra fältet', 'Nästa fält', 'öka', 'minska'],
 		isRTL: false};
-    $.datetimeEntry.setDefaults($.datetimeEntry.regional['sv']); 
+    $.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['sv']); 
 })(jQuery);

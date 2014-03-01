@@ -2,7 +2,7 @@
    Japanese initialisation for the jQuery date/time entry extension
    Written by Yuuki Takahashi (yuuki&#64fb69.jp). */
 (function($) {
-	$.datetimeEntry.regional['ja'] = {datetimeFormat: 'Y/O/D H:M',
+	$.datetimeEntry.regionalOptions['ja'] = {datetimeFormat: 'Y/O/D H:M',
 		monthNames: ['1月','2月','3月','4月','5月','6月',
 		'7月','8月','9月','10月','11月','12月'],
 		monthNamesShort: ['1月','2月','3月','4月','5月','6月',
@@ -12,5 +12,5 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['現在時刻', '前へ', '次へ', '増やす', '減らす'],
 		isRTL: false};
-	$.datetimeEntry.setDefaults($.datetimeEntry.regional['ja']);
+	$.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['ja']);
 })(jQuery);

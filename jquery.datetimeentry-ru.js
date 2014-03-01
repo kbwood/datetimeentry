@@ -2,7 +2,7 @@
    Russian (UTF-8) initialisation for the jQuery date/time entry extension.
    Written by Andrew Stromnov (stromnov@gmail.com). */
 (function($) {
-	$.datetimeEntry.regional['ru'] = {datetimeFormat: 'D.O.Y H:M',
+	$.datetimeEntry.regionalOptions['ru'] = {datetimeFormat: 'D.O.Y H:M',
 		monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
 		'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
 		monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
@@ -12,5 +12,5 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['Сейчас', 'Предыдущее поле', 'Следующее поле', 'Больше', 'Меньше'],
 		isRTL: false};
-	$.datetimeEntry.setDefaults($.datetimeEntry.regional['ru']);
+	$.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['ru']);
 })(jQuery);

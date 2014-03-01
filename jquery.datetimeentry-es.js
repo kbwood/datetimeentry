@@ -2,7 +2,7 @@
    Spanish initialisation for the jQuery date/time entry extension
    Written by diegok (diego@freekeylabs.com) and Vester (xvester@gmail.com). */
 (function($) {
-	$.datetimeEntry.regional['es'] = {datetimeFormat: 'D/O/Y H:M',
+	$.datetimeEntry.regionalOptions['es'] = {datetimeFormat: 'D/O/Y H:M',
 		monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
 		'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
 		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
@@ -12,5 +12,5 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['Ahora', 'Campo anterior', 'Siguiente campo', 'Aumentar', 'Disminuir'],
 		isRTL: false};
-	$.datetimeEntry.setDefaults($.datetimeEntry.regional['es']);
+	$.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['es']);
 })(jQuery);

@@ -2,7 +2,7 @@
    Hungarian initialisation for the jQuery date/time entry extension
    Written by Karaszi Istvan (raszi@spam.raszi.hu)  */
 (function($) {
-	$.datetimeEntry.regional['hu'] = {datetimeFormat: 'Y-O-D H:M',
+	$.datetimeEntry.regionalOptions['hu'] = {datetimeFormat: 'Y-O-D H:M',
 		monthNames: ['Január', 'Február', 'Március', 'Április', 'Május', 'Június',
 		'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'],
 		monthNamesShort: ['Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún',
@@ -12,5 +12,5 @@
 		ampmNames: ['AM', 'PM'],
 		spinnerTexts: ['Most', 'Előző mező', 'Következő mező', 'Növel', 'Csökkent'],
 		isRTL: false};
-	$.datetimeEntry.setDefaults($.datetimeEntry.regional['hu']);
+	$.datetimeEntry.setDefaults($.datetimeEntry.regionalOptions['hu']);
 })(jQuery);
